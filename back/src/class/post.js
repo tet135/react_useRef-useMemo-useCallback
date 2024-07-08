@@ -20,18 +20,20 @@ class Post {
 
     if (post) {
       post.reply.push(newPost)
+
+      console.log('post', post)
     } else {
       this.#list.push(newPost)
     }
 
-    console.log(this.#list)
+    console.log('list', this.#list)
 
     return newPost
   }
 
   static getById(id) {
     return (
-      this.#list.find((post) => post.id === Number(id)) ||
+      this.#list.find((item) => item.id === Number(id)) ||
       null
     )
   }
@@ -39,6 +41,6 @@ class Post {
   static getList = () => this.#list
 }
 
-module.export = {
+module.exports = {
   Post,
 }

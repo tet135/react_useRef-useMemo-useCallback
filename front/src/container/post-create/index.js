@@ -38,8 +38,8 @@ export default function Container({
       const data = await res.json();
 
       if (res.ok) {
-        //or setStatus(success)
-        setStatus(null);
+        //or setStatus(null)
+        setStatus(LOAD_STATUS.SUCCESS);
         //props onCreate містить функцію getData, яка виводить список постів.
         //отже користувач побачить оновлену сторінку сайту зі своїм постом,
         // і так зрозуміє, що запит виконався успішно
@@ -72,6 +72,10 @@ export default function Container({
         button={button}
         onSubmit={handleSubmit}
       />
+      {status === LOAD_STATUS.ERROR && (
+        <Alert status={status} message={message} />
+      )}
+      {status === LOAD_STATUS.PROGRESS && <Loader />}
     </Grid>
   );
 }
