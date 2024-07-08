@@ -45,22 +45,21 @@ export default function Container({ id, username, text, date }) {
     }
   };
 
-  //raw data деструктуризуэться так: {post}
-  const convertData = (raw) => ({
-    id: raw.post.id,
-    username: raw.post.username,
-    text: raw.post.text,
-    date: getData(raw.post.date),
+  //raw (все, що приходить в data) деструктуризуэться як {post}
+  const convertData = ({ post }) => ({
+    id: post.id,
+    username: post.username,
+    text: post.text,
+    date: getDate(post.date),
 
-    reply: raw.post.reply.reverse().map(({ id, username, text, date }) => ({
+    reply: post.reply.reverse().map(({ id, username, text, date }) => ({
       id,
-      // id: raw.post.id, ????
       username,
       text,
       date: getDate(date),
     })),
 
-    isEmpty: raw.post.reply.length === 0,
+    isEmpty: post.reply.length === 0,
   });
 
   const [isOpen, setOpen] = useState(false);
@@ -71,10 +70,6 @@ export default function Container({ id, username, text, date }) {
     }
     setOpen(!isOpen);
   };
-
-  // const handleOpen = () => {
-  //   setOpen(!isOpen);
-  // };
 
   return (
     <Box style={{ padding: "0" }}>
